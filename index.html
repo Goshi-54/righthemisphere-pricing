@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>動画クリエイティブ制作 料金シミュレーター</title>
+<style>
+  :root {
+    --accent: #2563eb;
+    --accent-bg: #eff6ff;
+    --ink: #1f2937;
+    --sub: #6b7280;
+    --line: #e5e7eb;
+    --bg: #f5f6f8;
+    --panel: #334155;
+    --minus: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .hero {
+    background: var(--accent);
+    color: #fff;
+    text-align: center;
+    padding: 36px 16px 32px;
+  }
+  .hero .lead { font-size: 13px; opacity: .9; }
+  .hero h1 { font-size: 26px; margin-top: 4px; letter-spacing: .05em; }
+  .hero .note { font-size: 12px; margin-top: 8px; opacity: .85; }
+  .hero .note a { color: #fff; text-decoration: underline; }
+  .wrap {
+    max-width: 1080px;
+    margin: 28px auto 60px;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 1fr 310px;
+    gap: 20px;
+    align-items: start;
+  }
+  @media (max-width: 800px) { .wrap { grid-template-columns: 1fr; } }
+
+  .block {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+  .block h2 { font-size: 15px; margin-bottom: 4px; }
+  .block h2 .num { color: var(--accent); margin-right: 6px; }
+  .block .guide { font-size: 12px; color: var(--sub); margin-bottom: 14px; }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+  .card {
+    border: 2px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    background: #fff;
+    text-align: left;
+    transition: border-color .15s, background .15s;
+    position: relative;
+  }
+  .card:hover { border-color: #93c5fd; }
+  .card.on { border-color: var(--accent); background: var(--accent-bg); }
+  .card .check {
+    position: absolute; top: 12px; right: 12px;
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: #fff;
+  }
+  .card.on .check { background: var(--accent); border-color: var(--accent); }
+  .card .name { font-weight: 700; font-size: 14px; padding-right: 26px; }
+  .card .name .plab { color: var(--accent); }
+  .card .desc { font-size: 12px; color: var(--sub); margin: 2px 0 8px; }
+  .card .price { font-size: 20px; font-weight: 700; }
+  .card .price .unit { font-size: 11px; font-weight: 400; color: var(--sub); margin-left: 2px; }
+  .card .qty {
+    margin-top: 10px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--sub);
+  }
+  .card.on .qty { display: flex; }
+
+  .ftable { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ftable th {
+    background: #f3f4f6;
+    color: var(--sub);
+    font-size: 11px;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .ftable td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+  }
+  .ftable tr:last-child td { border-bottom: none; }
+  .ftable tbody tr { cursor: pointer; transition: background .12s; }
+  .ftable tbody tr:hover { background: var(--accent-bg); }
+  .ftable .fmt { font-weight: 700; }
+  .ftable .fmt .cond { font-weight: 400; color: var(--sub); }
+  .ftable .pat { white-space: nowrap; }
+  .ftable .arrow { color: var(--accent); font-weight: 700; margin-right: 6px; }
+  .fnote { font-size: 11px; color: var(--sub); margin-top: 10px; }
+
+  .numrow { display: flex; gap: 24px; flex-wrap: wrap; }
+  .numfield .label { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+  .numfield .hint { font-size: 11px; color: var(--sub); margin-bottom: 6px; }
+  .stepper { display: flex; align-items: center; }
+  .stepper button {
+    width: 34px; height: 34px;
+    border: 1px solid var(--line);
+    background: #fff;
+    font-size: 17px;
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .stepper button:first-child { border-radius: 8px 0 0 8px; }
+  .stepper button:last-child { border-radius: 0 8px 8px 0; }
+  .stepper button:hover { background: var(--accent-bg); }
+  .stepper input {
+    width: 60px; height: 34px;
+    border: 1px solid var(--line);
+    border-left: none; border-right: none;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    background: #fff;
+  }
+  .stepper input:focus { outline: 2px solid var(--accent); }
+  .stepper .tail { font-size: 13px; color: var(--sub); margin-left: 8px; }
+
+  .result {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    position: sticky;
+    top: 16px;
+  }
+  .result .head {
+    background: var(--panel);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 18px;
+  }
+  .result .body { padding: 6px 18px 14px; }
+  .rsec {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--sub);
+    letter-spacing: .06em;
+    margin-top: 12px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--line);
+  }
+  .rrow {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 8px 0 0;
+    font-size: 12px; color: var(--sub);
+    gap: 10px;
+  }
+  .rrow .label { flex: 1; }
+  .rrow .val { font-size: 14px; font-weight: 700; color: var(--ink); white-space: nowrap; }
+  .rrow .val.minus { color: var(--minus); }
+  .rrow.total {
+    border-top: 1px solid var(--line);
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+  .rrow.total .label { font-size: 13px; color: var(--ink); font-weight: 700; }
+  .rrow.total .val { font-size: 16px; }
+  .rrow.grand { border-top: none; margin-top: 2px; }
+  .rrow.grand .label { font-size: 13px; color: var(--ink); font-weight: 700; }
+  .rrow.grand .val { font-size: 24px; color: var(--accent); }
+  .result .notes { font-size: 10.5px; color: var(--sub); padding: 10px 18px 16px; border-top: 1px solid var(--line); margin-top: 12px; }
+  .result .notes li { list-style: none; margin-top: 3px; }
+  .copybtn {
+    display: block;
+    width: calc(100% - 36px);
+    margin: 14px 18px 4px;
+    padding: 10px 0;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .copybtn:hover { background: var(--accent-bg); }
+  .copybtn.done { background: var(--accent); color: #fff; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>料金シミュレーション</h1>
+  <div class="note">パターンとオプションを選ぶと、概算料金がその場でわかります。</div>
+  <div class="note"><a href="guide/">料金体系のご説明はこちら</a></div>
+</div>
+
+<div class="wrap">
+  <div>
+
+    <div class="block">
+      <h2><span class="num">01.</span>制作パターン</h2>
+      <div class="guide">依頼するパターンを選択後、本数を指定してください。<br>※複数パターン選択可能</div>
+      <div class="cards" id="patterns"></div>
+    </div>
+
+    <div class="block">
+      <h2><span class="num">02.</span>表現フォーマット早見表</h2>
+      <div class="guide">作りたい表現フォーマットから、該当する制作パターンを確認できます。<br>（行をクリックすると該当パターンが選択されます）</div>
+      <table class="ftable">
+        <thead>
+          <tr><th>表現フォーマット</th><th>該当パターン</th></tr>
+        </thead>
+        <tbody id="ftable"></tbody>
+      </table>
+      <div class="fnote">※カメラ語り型は貴社での素材撮影を想定しております。</div>
+      <div class="fnote">※ショートドラマ型・コント型、AIコンテンツ型は個別見積りです</div>
+    </div>
+
+    <div class="block">
+      <h2><span class="num">03.</span>調整率</h2>
+      <div class="guide">必要に応じて制作費の調整率を入力してください。</div>
+      <div class="numrow">
+        <div class="numfield">
+          <div class="stepper">
+            <button data-t="rate" data-d="-5">−</button>
+            <input id="rate" type="number" min="-100" step="5" value="0">
+            <button data-t="rate" data-d="5">＋</button>
+            <span class="tail">%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2><span class="num">04.</span>イレギュラーオプション</h2>
+      <div class="guide">イレギュラー制作オプションです。必要な場合のみ本数を入れてください。</div>
+      <div class="numrow">
+        <div class="numfield">
+          <div class="label">動画編集単体</div>
+          <div class="hint">8,000円／本</div>
+          <div class="stepper">
+            <button data-t="edit" data-d="-1">−</button>
+            <input id="edit" type="number" min="0" value="0">
+            <button data-t="edit" data-d="1">＋</button>
+            <span class="tail">本</span>
+          </div>
+        </div>
+        <div class="numfield">
+          <div class="label">納品後修正・追加編集</div>
+          <div class="hint">5,000円／本</div>
+          <div class="stepper">
+            <button data-t="fix" data-d="-1">−</button>
+            <input id="fix" type="number" min="0" value="0">
+            <button data-t="fix" data-d="1">＋</button>
+            <span class="tail">本</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="result">
+    <div class="head">シミュレーション結果</div>
+    <div class="body">
+      <div class="rsec">制作費</div>
+      <div id="rPatterns"></div>
+      <div class="rrow"><span class="label" id="rAdjLabel">調整</span><span class="val" id="rAdj">−</span></div>
+      <div class="rsec">イレギュラーオプション</div>
+      <div class="rrow"><span class="label">動画編集単体</span><span class="val" id="rEdit">−</span></div>
+      <div class="rrow"><span class="label">納品後修正・追加編集</span><span class="val" id="rFix">−</span></div>
+      <div class="rrow total"><span class="label">合計</span><span class="val" id="rEx">−</span></div>
+      <div class="rrow"><span class="label">消費税（10%）</span><span class="val" id="rTax">−</span></div>
+      <div class="rrow grand"><span class="label">合計（税込）</span><span class="val" id="rIn">−</span></div>
+    </div>
+    <button class="copybtn" id="copyBtn">入力内容をコピー</button>
+    <ul class="notes">
+      <li>※ 2分以上の動画や、文字数・秒数の指定がある場合は、その分の倍率調整が入ります。</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // 並び順=料金の高い順（A→D）
+  const PATTERNS = [
+    { letter: "A", name: "台本（新規）× 素材（新規）",     short: "新規 × 新規",     desc: "新規台本＋新規素材撮影",       price: 77000 },
+    { letter: "B", name: "台本（新規）× 素材（横展開）",   short: "新規 × 横展開",   desc: "新規台本＋既存素材で制作",     price: 57000 },
+    { letter: "C", name: "台本（横展開）× 素材（新規）",   short: "横展開 × 新規",   desc: "過去台本の展開＋新規素材撮影", price: 47000 },
+    { letter: "D", name: "台本（横展開）× 素材（横展開）", short: "横展開 × 横展開", desc: "過去台本の展開＋既存素材で制作", price: 27000 },
+  ];
+  // 出所: 料金体系（社内一括版）「3. フォーマット対応早見表」
+  const FORMATS = [
+    { fmt: "Vlog型", cond: "新規台本・新規素材撮影", pat: 0 },
+    { fmt: "Vlog型", cond: "新規台本・既存素材",     pat: 1 },
+    { fmt: "Vlog型", cond: "台本横展開・新規素材撮影", pat: 2 },
+    { fmt: "Vlog型", cond: "台本横展開・既存素材",   pat: 3 },
+    { fmt: "カメラ語り型", cond: "新規台本",   pat: 1 },
+    { fmt: "カメラ語り型", cond: "台本横展開", pat: 3 },
+    { fmt: "素材組み合わせ型", cond: "新規台本・新規素材撮影", pat: 0 },
+    { fmt: "素材組み合わせ型", cond: "新規台本・既存素材",     pat: 1 },
+    { fmt: "素材組み合わせ型", cond: "台本横展開・新規素材撮影", pat: 2 },
+    { fmt: "素材組み合わせ型", cond: "台本横展開・既存素材",   pat: 3 },
+  ];
+  const FIX_PRICE = 5000, EDIT_PRICE = 8000;
+  const qtys = [0, 0, 0, 0];
+
+  const yen = n => (n < 0 ? "−¥" : "¥") + Math.abs(n).toLocaleString("ja-JP");
+
+  const patBox = document.getElementById("patterns");
+  PATTERNS.forEach((p, i) => {
+    const b = document.createElement("div");
+    b.className = "card";
+    b.innerHTML = `<span class="check">✓</span>
+      <div class="name"><span class="plab">${p.letter}.</span> ${p.name}</div>
+      <div class="desc">${p.desc}</div>
+      <div class="price">${p.price.toLocaleString("ja-JP")}円<span class="unit">/本</span></div>
+      <div class="qty">本数
+        <span class="stepper">
+          <button data-q="${i}" data-d="-1">−</button>
+          <input id="qty${i}" type="number" min="0" value="1">
+          <button data-q="${i}" data-d="1">＋</button>
+        </span>本
+      </div>`;
+    b.onclick = () => { qtys[i] = qtys[i] > 0 ? 0 : 1; document.getElementById("qty" + i).value = Math.max(1, qtys[i]); render(); };
+    patBox.appendChild(b);
+  });
+  document.querySelectorAll(".card .qty").forEach(el => {
+    el.addEventListener("click", e => e.stopPropagation());
+  });
+  document.querySelectorAll(".card [data-q]").forEach(b => {
+    b.addEventListener("click", e => {
+      e.stopPropagation();
+      const i = Number(b.dataset.q);
+      const input = document.getElementById("qty" + i);
+      const v = Math.max(0, (Number(input.value) || 0) + Number(b.dataset.d));
+      input.value = v;
+      qtys[i] = v;
+      render();
+    });
+  });
+  [0,1,2,3].forEach(i => {
+    document.getElementById("qty" + i).addEventListener("input", () => {
+      qtys[i] = Math.max(0, Number(document.getElementById("qty" + i).value) || 0);
+      render();
+    });
+  });
+
+  const ftBox = document.getElementById("ftable");
+  FORMATS.forEach(f => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td class="fmt">${f.fmt}<span class="cond">｜${f.cond}</span></td>
+      <td class="pat"><span class="arrow">→</span>${PATTERNS[f.pat].letter}. ${PATTERNS[f.pat].name}</td>`;
+    tr.onclick = () => {
+      if (qtys[f.pat] === 0) {
+        qtys[f.pat] = 1;
+        document.getElementById("qty" + f.pat).value = 1;
+      }
+      render();
+      document.querySelectorAll("#patterns .card")[f.pat].scrollIntoView({ behavior: "smooth", block: "center" });
+    };
+    ftBox.appendChild(tr);
+  });
+
+  document.querySelectorAll(".numrow .stepper button").forEach(b => {
+    b.onclick = () => {
+      const input = document.getElementById(b.dataset.t);
+      const min = input.min === "" ? -Infinity : Number(input.min);
+      input.value = Math.max(min, (Number(input.value) || 0) + Number(b.dataset.d));
+      render();
+    };
+  });
+  ["edit", "fix", "rate"].forEach(id => {
+    document.getElementById(id).addEventListener("input", render);
+  });
+
+  function buildCopyText() {
+    const lines = [];
+    const selected = PATTERNS.map((p, i) => ({ p, q: qtys[i] })).filter(x => x.q > 0);
+    if (selected.length) {
+      lines.push("■制作パターン");
+      selected.forEach(x => lines.push(`${x.p.letter}：${x.q}本`));
+    }
+    const rate = Number(document.getElementById("rate").value) || 0;
+    if (rate) lines.push(`■調整率｜${rate > 0 ? "＋" : "−"}${Math.abs(rate)}%`);
+    const edit = Math.max(0, Number(document.getElementById("edit").value) || 0);
+    const fix = Math.max(0, Number(document.getElementById("fix").value) || 0);
+    if (edit || fix) {
+      lines.push("■イレギュラーオプション");
+      if (edit) lines.push(`・動画編集単体｜${edit}本`);
+      if (fix) lines.push(`・納品後修正・追加編集｜${fix}本`);
+    }
+    return lines.join("\n");
+  }
+
+  const copyBtn = document.getElementById("copyBtn");
+  copyBtn.onclick = () => {
+    const text = buildCopyText();
+    const done = (msg) => {
+      copyBtn.textContent = msg;
+      copyBtn.classList.add("done");
+      setTimeout(() => { copyBtn.textContent = "入力内容をコピー"; copyBtn.classList.remove("done"); }, 1500);
+    };
+    if (!text) { done("コピーする内容がありません"); return; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => done("コピーしました"), () => fallbackCopy(text, done));
+    } else {
+      fallbackCopy(text, done);
+    }
+  };
+  function fallbackCopy(text, done) {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    done("コピーしました");
+  }
+
+  function render() {
+    document.querySelectorAll("#patterns .card").forEach((el, i) => el.classList.toggle("on", qtys[i] > 0));
+
+    const set = (id, v, minus) => {
+      const el = document.getElementById(id);
+      el.innerHTML = v;
+      el.classList.toggle("minus", !!minus);
+    };
+
+    const selected = PATTERNS.map((p, i) => ({ ...p, qty: qtys[i] })).filter(p => p.qty > 0);
+    const patBoxR = document.getElementById("rPatterns");
+
+    const baseSum = selected.reduce((s, p) => s + p.price * p.qty, 0);
+    const rate = Number(document.getElementById("rate").value) || 0;
+    const adj = Math.round(baseSum * rate / 100);
+    const edit = Math.max(0, Number(document.getElementById("edit").value) || 0);
+    const editSum = edit * EDIT_PRICE;
+    const fix = Math.max(0, Number(document.getElementById("fix").value) || 0);
+    const fixSum = fix * FIX_PRICE;
+
+    const totalEx = baseSum + adj + editSum + fixSum;
+
+    if (!selected.length && totalEx === 0) {
+      patBoxR.innerHTML = `<div class="rrow"><span class="label">パターン未選択</span><span class="val">−</span></div>`;
+      ["rAdj","rEdit","rFix","rEx","rTax","rIn"].forEach(id => set(id, "−"));
+      document.getElementById("rAdjLabel").textContent = "調整";
+      return;
+    }
+
+    const totalIn = Math.round(totalEx * 1.1);
+    const tax = totalIn - totalEx;
+
+    patBoxR.innerHTML = selected.length
+      ? selected.map(p =>
+          `<div class="rrow"><span class="label">${p.letter}. ${p.short}：${p.qty}本</span><span class="val">${yen(p.price * p.qty)}</span></div>`
+        ).join("")
+      : `<div class="rrow"><span class="label">パターン未選択</span><span class="val">−</span></div>`;
+    document.getElementById("rAdjLabel").textContent = rate && selected.length ? `調整（${rate > 0 ? "＋" : "−"}${Math.abs(rate)}%）` : "調整";
+    set("rAdj", rate && selected.length ? yen(adj) : "−", adj < 0);
+    set("rEdit", editSum ? `${edit}本　` + yen(editSum) : "−");
+    set("rFix", fixSum ? `${fix}本　` + yen(fixSum) : "−");
+    set("rEx", yen(totalEx));
+    set("rTax", yen(tax));
+    set("rIn", yen(totalIn));
+  }
+  render();
+</script>
+</body>
+</html>

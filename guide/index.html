@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ショート動画広告CR 料金体系</title>
+<style>
+  :root {
+    --accent: #2563eb;
+    --accent-bg: #eff6ff;
+    --ink: #1f2937;
+    --sub: #6b7280;
+    --line: #e5e7eb;
+    --bg: #f5f6f8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+  .hero {
+    background: var(--accent);
+    color: #fff;
+    text-align: center;
+    padding: 36px 16px 32px;
+  }
+  .hero h1 { font-size: 26px; letter-spacing: .05em; }
+  .hero .note { font-size: 12px; margin-top: 8px; opacity: .85; }
+  .wrap { max-width: 760px; margin: 28px auto 60px; padding: 0 16px; }
+  .block {
+    background: #fff;
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+  .block h2 {
+    font-size: 16px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+  .block h2 .num { color: var(--accent); margin-right: 6px; }
+  .block .guide { font-size: 12.5px; color: var(--sub); margin-bottom: 14px; }
+  .block .cta { margin: 16px 0 0; }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+  .card {
+    border: 2px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .card .name { font-weight: 700; font-size: 14px; }
+  .card .name .plab { color: var(--accent); }
+  .card .desc { font-size: 12px; color: var(--sub); margin: 2px 0 8px; }
+  .card .price { font-size: 20px; font-weight: 700; }
+  .card .price .unit { font-size: 11px; font-weight: 400; color: var(--sub); margin-left: 2px; }
+  .card .taxin { font-size: 11px; color: var(--sub); }
+
+  .terms { font-size: 13px; }
+  .terms li { list-style: none; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .terms li:last-child { border-bottom: none; }
+  .terms .d { color: var(--sub); font-size: 12.5px; }
+
+  .ftable { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .ftable th {
+    background: #f3f4f6;
+    color: var(--sub);
+    font-size: 11px;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .ftable td { padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  .ftable tr:last-child td { border-bottom: none; }
+  .ftable .fmt { font-weight: 700; }
+  .ftable .fmt .cond { font-weight: 400; color: var(--sub); }
+  .ftable .arrow { color: var(--accent); font-weight: 700; margin-right: 6px; }
+  .fnote { font-size: 11px; color: var(--sub); margin-top: 10px; }
+  .body13 { font-size: 13px; }
+  .tlink { color: var(--accent); }
+
+  .std {
+    background: var(--accent-bg);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+  .std b { color: var(--accent); }
+
+  .seplist { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .sepbox {
+    border: 2px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12.5px;
+  }
+  .sepbox b { font-size: 13px; }
+  .sepbox .d { color: var(--sub); }
+  .optrow { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .optrow .pr { text-align: right; font-weight: 700; font-size: 13px; white-space: nowrap; }
+  .optrow .pr .taxin { font-size: 11px; font-weight: 400; color: var(--sub); }
+
+  .cta {
+    display: block;
+    text-align: center;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 18px;
+    transition: opacity .15s;
+  }
+  .cta:hover { opacity: .9; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>ショート動画広告CR 料金体系</h1>
+  <div class="note">ショート動画広告CR制作代行の料金体系のご案内</div>
+</div>
+
+<div class="wrap">
+
+  <div class="block">
+    <h2><span class="num">01.</span>制作単価</h2>
+    <div class="guide">制作パターン別料金一覧</div>
+    <div class="cards">
+      <div class="card">
+        <div class="name"><span class="plab">A.</span> 台本（新規）× 素材（新規）</div>
+        <div class="desc">新規台本＋新規素材撮影</div>
+        <div class="price">77,000円<span class="unit">/本</span></div>
+        <div class="taxin">税込 84,700円</div>
+      </div>
+      <div class="card">
+        <div class="name"><span class="plab">B.</span> 台本（新規）× 素材（横展開）</div>
+        <div class="desc">新規台本＋既存素材で制作</div>
+        <div class="price">57,000円<span class="unit">/本</span></div>
+        <div class="taxin">税込 62,700円</div>
+      </div>
+      <div class="card">
+        <div class="name"><span class="plab">C.</span> 台本（横展開）× 素材（新規）</div>
+        <div class="desc">過去台本の展開＋新規素材撮影</div>
+        <div class="price">47,000円<span class="unit">/本</span></div>
+        <div class="taxin">税込 51,700円</div>
+      </div>
+      <div class="card">
+        <div class="name"><span class="plab">D.</span> 台本（横展開）× 素材（横展開）</div>
+        <div class="desc">過去台本の展開＋既存素材で制作</div>
+        <div class="price">27,000円<span class="unit">/本</span></div>
+        <div class="taxin">税込 29,700円</div>
+      </div>
+    </div>
+    <a class="cta" href="../">料金シミュレーション</a>
+  </div>
+
+  <div class="block">
+    <h2><span class="num">02.</span>料金体系</h2>
+    <div class="guide">「台本」と「素材」の新規性で料金パターンを設定しております。</div>
+    <ul class="terms">
+      <li><b>台本（新規）</b><br><span class="d">新規訴求や過去台本分析後のブラッシュアップ</span></li>
+      <li><b>台本（横展開）</b><br><span class="d">弊社にて過去作成した台本から演者替えなどの横展開</span></li>
+      <li><b>素材（新規）</b><br><span class="d">素材を台本に合わせて新規で撮影及び準備</span></li>
+      <li><b>素材（横展開）</b><br><span class="d">弊社にてストックしている素材をVlog型などに使用<br>（カメラ語り型など貴社からの素材提供パターンもこちら）</span></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h2><span class="num">03.</span>表現フォーマット別早見表</h2>
+    <div class="std"><b>Vlog型の制作が主軸になります。</b></div>
+    <table class="ftable">
+      <thead>
+        <tr><th>表現フォーマット</th><th>該当パターン</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="fmt">Vlog型<span class="cond">｜新規台本・新規素材撮影</span></td><td><span class="arrow">→</span>A. 台本（新規）× 素材（新規）</td></tr>
+        <tr><td class="fmt">Vlog型<span class="cond">｜新規台本・既存素材</span></td><td><span class="arrow">→</span>B. 台本（新規）× 素材（横展開）</td></tr>
+        <tr><td class="fmt">Vlog型<span class="cond">｜台本横展開・新規素材撮影</span></td><td><span class="arrow">→</span>C. 台本（横展開）× 素材（新規）</td></tr>
+        <tr><td class="fmt">Vlog型<span class="cond">｜台本横展開・既存素材</span></td><td><span class="arrow">→</span>D. 台本（横展開）× 素材（横展開）</td></tr>
+        <tr><td class="fmt">カメラ語り型<span class="cond">｜新規台本</span></td><td><span class="arrow">→</span>B. 台本（新規）× 素材（横展開）</td></tr>
+        <tr><td class="fmt">カメラ語り型<span class="cond">｜台本横展開</span></td><td><span class="arrow">→</span>D. 台本（横展開）× 素材（横展開）</td></tr>
+        <tr><td class="fmt">素材組み合わせ型<span class="cond">｜新規台本・新規素材撮影</span></td><td><span class="arrow">→</span>A. 台本（新規）× 素材（新規）</td></tr>
+        <tr><td class="fmt">素材組み合わせ型<span class="cond">｜新規台本・既存素材</span></td><td><span class="arrow">→</span>B. 台本（新規）× 素材（横展開）</td></tr>
+        <tr><td class="fmt">素材組み合わせ型<span class="cond">｜台本横展開・新規素材撮影</span></td><td><span class="arrow">→</span>C. 台本（横展開）× 素材（新規）</td></tr>
+        <tr><td class="fmt">素材組み合わせ型<span class="cond">｜台本横展開・既存素材</span></td><td><span class="arrow">→</span>D. 台本（横展開）× 素材（横展開）</td></tr>
+      </tbody>
+    </table>
+    <div class="fnote">※カメラ語り型は貴社での素材撮影を想定しております。</div>
+    <div class="fnote">※予算と依頼本数に合わせて弊社側で調整も可能</div>
+  </div>
+
+  <div class="block">
+    <h2><span class="num">04.</span>特殊表現</h2>
+    <div class="guide">お見積もり含め適宜ご相談ください。</div>
+    <div class="seplist">
+      <div class="sepbox"><b>AIコンテンツ型</b><span class="d">｜生成AI素材による表現コンテンツ</span></div>
+      <div class="sepbox"><b>ショートドラマ型</b><span class="d">｜演者2名以上によるドラマ表現コンテンツ</span></div>
+      <div class="sepbox"><b>コント型</b><span class="d">｜演者1名以上によるコント風表現コンテンツ</span></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2><span class="num">05.</span>イレギュラー制作</h2>
+    <div class="guide">イレギュラー制作オプションです。必要な場合はご相談ください。</div>
+    <div class="seplist">
+      <div class="sepbox optrow"><b>動画編集単体</b><span class="pr">8,000円／本<br><span class="taxin">税込 8,800円</span></span></div>
+      <div class="sepbox optrow"><b>納品後修正・追加編集</b><span class="pr">5,000円／本<br><span class="taxin">税込 5,500円</span></span></div>
+    </div>
+    <div class="fnote">※2分以上の動画や、文字数・秒数の指定がある場合は、その分の倍率調整が入ります。</div>
+  </div>
+
+  <div class="block">
+    <h2><span class="num">06.</span>納品仕様</h2>
+    <ul class="terms">
+      <li><b>冒頭パターン</b><br><span class="d">冒頭は3パターン納品が標準となります。<br>審査落ち対策などで5パターン作成から始めるため、そのまま5冒頭を納品する場合があります。</span></li>
+      <li><b>修正対応</b><br><span class="d">納品前は3ラリーまで無償で修正対応いたします。<br>貴社都合、納品後の修正依頼はオプション対応になる場合があります。</span></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h2><span class="num">07.</span>単価調整について</h2>
+    <div class="body13">事業予算、表現強化などの背景に合わせて単価調整が可能です。<br>制作単価へ調整率をかけるか制作単価をベースに別途単価設定でご相談ください。</div>
+    <div class="fnote">調整率は<a class="tlink" href="../">料金シミュレーション</a>で試せます。</div>
+  </div>
+
+  <a class="cta" href="../">料金シミュレーションを試す</a>
+
+</div>
+
+</body>
+</html>
